@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
+@AllArgsConstructor
 public class UsuarioDTO {
     @NonNull
     private Integer UID;

@@ -5,6 +5,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+
 @Entity
 public class Usuario {
     @Id
