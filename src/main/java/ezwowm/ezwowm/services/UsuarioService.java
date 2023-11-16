@@ -28,6 +28,12 @@ public class UsuarioService {
         //return convertToDTOList(listaDeRepo);
         return null;
     }
+    public UsuarioDTO devolverUsuarioPorDNI(Integer dni){
+        Usuario usuario = usuarioRepository.findByDNI(dni);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        BeanUtils.copyProperties(usuarioDTO, usuario);
+        return usuarioDTO;
+    }
     private List<UsuarioDTO> convertToDTOList(List<Usuario> userList) {
         return userList.stream()
                 .map(user -> modelMapper.map(user, UsuarioDTO.class))
