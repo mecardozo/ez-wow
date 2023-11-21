@@ -24,15 +24,24 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> devolverUsuarios(){  //Works
-        //List<Usuario> listaDeRepo = usuarioRepository.getUsuarios();
-        //return convertToDTOList(listaDeRepo);
-        return null;
+        try {
+        List<Usuario> listaDeRepo = usuarioRepository.findAll();
+        return convertToDTOList(listaDeRepo);
+        }
+        catch (RuntimeException e){
+            return null;
+        }
     }
     public UsuarioDTO devolverUsuarioPorDNI(Integer dni){
         Usuario usuario = usuarioRepository.findByDNI(dni);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        BeanUtils.copyProperties(usuarioDTO, usuario);
+        try {
+        BeanUtils.copyProperties(usuario,usuarioDTO);
         return usuarioDTO;
+        }
+        catch (RuntimeException e){
+            return null;
+        }
     }
     private List<UsuarioDTO> convertToDTOList(List<Usuario> userList) {
         return userList.stream()
