@@ -43,10 +43,19 @@ public class UsuarioService {
             return null;
         }
     }
+
+    public boolean eliminarUsuarioPorDni(Integer dni){
+        Integer deleteUser = usuarioRepository.deleteByDni(dni);
+        if (deleteUser > 0 )
+            return true;
+        return false;
+    }
     private List<UsuarioDTO> convertToDTOList(List<Usuario> userList) {
         return userList.stream()
                 .map(user -> modelMapper.map(user, UsuarioDTO.class))
                 .collect(Collectors.toList());
     }
+
+
 
 }

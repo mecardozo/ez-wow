@@ -1,8 +1,10 @@
 package ezwowm.ezwowm.repository;
 
 import ezwowm.ezwowm.model.Usuario;
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +19,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario findByDNI(@Param("dni") Integer dni);
     @NonNull
     List<Usuario> findAll();
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Usuario u WHERE u.dni = :dni")
+    Integer deleteByDni(Integer dni);
 }
