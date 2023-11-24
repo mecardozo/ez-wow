@@ -14,15 +14,20 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-    @GetMapping("/usuario")
-    public ResponseEntity<?> getUserByDNI(@RequestParam Integer dni) {
-        UsuarioDTO usuarioDTO = usuarioService.devolverUsuarioPorDNI(dni);
-        if (usuarioDTO == null){
-            return ResponseEntity.badRequest().body("El usuario con dni " + dni + " no existe");
-        }
-        return ResponseEntity.ok(usuarioDTO);
+
+    //C(create)
+    @PostMapping("/usuarios")
+    public ResponseEntity<?> postUser(@RequestParam Integer dni, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo){
+        return ResponseEntity.ok(usuarioService.insertUsuario(dni, nombre, apellido, correo));
     }
 
+    @PostMapping("/usuarios/object")
+    public ResponseEntity<?> postUserObject(@RequestBody UsuarioDTO usuarioDTO){
+        return ResponseEntity.ok(usuarioService.insertUsuario(usuarioDTO.getDni(),usuarioDTO.getNombre(),usuarioDTO.getApellido(),usuarioDTO.getCorreo()));
+    }
+    //Create sin parametros, el objeto crudo
+
+    //R(read)
     @GetMapping("/usuarios")
     public ResponseEntity<?> getUsers() {
         List<UsuarioDTO> usuariosDTOS = usuarioService.devolverUsuarios();
@@ -33,13 +38,18 @@ public class UsuarioController {
     }
 
 
-
-    @PostMapping("/usuarios")
-    public ResponseEntity<?> postUser(@RequestParam Integer dni, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo){
-        usuarioService.insertUsuario(dni,nombre,apellido,correo);
-        return ResponseEntity.ok("ok");
+    @GetMapping("/usuario")
+    public ResponseEntity<?> getUserByDNI(@RequestParam Integer dni) {
+        UsuarioDTO usuarioDTO = usuarioService.devolverUsuarioPorDNI(dni);
+        if (usuarioDTO == null){
+            return ResponseEntity.badRequest().body("El usuario con dni " + dni + " no existe");
+        }
+        return ResponseEntity.ok(usuarioDTO);
     }
 
+
+
+    //D(delete)
     @DeleteMapping("/usuario")
     public ResponseEntity<?> deleteUserByDni(@RequestParam Integer dni){
         return ResponseEntity.ok(usuarioService.eliminarUsuarioPorDni(dni));

@@ -48,8 +48,11 @@ public class UsuarioService {
         Integer deleteUser = usuarioRepository.deleteByDni(dni);
         return deleteUser > 0;
     }
-    public void insertUsuario(Integer dni, String nombre, String apellido, String correo){
+    public UsuarioDTO insertUsuario(Integer dni, String nombre, String apellido, String correo){
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioRepository.insertUsuario(dni, nombre,apellido,correo);
+        BeanUtils.copyProperties(usuarioRepository.findByDNI(dni),usuarioDTO);
+        return usuarioDTO;
     }
     private List<UsuarioDTO> convertToDTOList(List<Usuario> userList) {
         return userList.stream()

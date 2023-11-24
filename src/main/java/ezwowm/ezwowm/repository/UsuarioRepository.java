@@ -1,5 +1,6 @@
 package ezwowm.ezwowm.repository;
 
+import ezwowm.ezwowm.dto.UsuarioDTO;
 import ezwowm.ezwowm.model.Usuario;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
@@ -27,6 +28,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Modifying
     @Transactional
     @Query("INSERT INTO Usuario u (u.dni, u.nombre, u.apellido, u.correo) VALUES (:dni, :nombre, :apellido, :correo)")
-    void insertUsuario(@Param("dni") Integer dni, @Param("nombre") String nombre,@Param("apellido") String apellido, @Param("correo") String correo);
+    void insertUsuario(@Param("dni") Integer dni, @Param("nombre") String nombre, @Param("apellido") String apellido, @Param("correo") String correo);
 
 }
