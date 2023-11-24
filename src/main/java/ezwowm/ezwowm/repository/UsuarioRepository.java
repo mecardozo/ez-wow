@@ -23,4 +23,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Transactional
     @Query("DELETE FROM Usuario u WHERE u.dni = :dni")
     Integer deleteByDni(Integer dni);
+
+    @Modifying
+    @Transactional
+    @Query("INSERT INTO Usuario u (u.dni, u.nombre, u.apellido, u.correo) VALUES (:dni, :nombre, :apellido, :correo)")
+    void insertUsuario(@Param("dni") Integer dni, @Param("nombre") String nombre,@Param("apellido") String apellido, @Param("correo") String correo);
+
 }

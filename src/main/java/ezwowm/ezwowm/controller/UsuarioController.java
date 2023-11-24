@@ -35,8 +35,9 @@ public class UsuarioController {
 
 
     @PostMapping("/usuarios")
-    public UsuarioDTO postUser(UsuarioDTO usuario){
-        return null;
+    public ResponseEntity<?> postUser(@RequestParam Integer dni, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo){
+        usuarioService.insertUsuario(dni,nombre,apellido,correo);
+        return ResponseEntity.ok("ok");
     }
 
     @DeleteMapping("/usuario")

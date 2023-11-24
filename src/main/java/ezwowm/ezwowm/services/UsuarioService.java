@@ -46,9 +46,10 @@ public class UsuarioService {
 
     public boolean eliminarUsuarioPorDni(Integer dni){
         Integer deleteUser = usuarioRepository.deleteByDni(dni);
-        if (deleteUser > 0 )
-            return true;
-        return false;
+        return deleteUser > 0;
+    }
+    public void insertUsuario(Integer dni, String nombre, String apellido, String correo){
+        usuarioRepository.insertUsuario(dni, nombre,apellido,correo);
     }
     private List<UsuarioDTO> convertToDTOList(List<Usuario> userList) {
         return userList.stream()

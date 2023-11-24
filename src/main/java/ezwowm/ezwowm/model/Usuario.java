@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Usuario {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer UID;
 
     private Integer dni;
